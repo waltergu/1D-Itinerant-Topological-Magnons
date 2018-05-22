@@ -76,7 +76,7 @@ def lattice():
     ax.text(-1.5,4.3,'(c)',ha='left',va='center',fontsize=18,color='black')
 
     ax=plt.subplot(gs[1:20,1])
-    result=np.loadtxt('../../result/tba/1DIF_S2x(1P-1O)_A_1.0_1.4_-0.04_TBA_EB.dat')
+    result=np.loadtxt('../result/tba/1DIF_S2x(1P-1O)_A_1.0_1.4_-0.04_TBA_EB.dat')
     ax.plot(result[:,0],result[:,1:],color='green',lw=2)
     ax.minorticks_on()
     ax.set_ylim(-2.5,4.5)
@@ -103,12 +103,12 @@ def spectrum():
     cmap=cmx.ScalarMappable(norm=colors.Normalize(vmin=vmin,vmax=vmax),cmap=plt.get_cmap('viridis'))
     for i,parameter in enumerate([0.02,0.409,0.78]):
         names=[
-            '../../result/ed/1DIF_S2x(8P-1O)_FSTR(32,8,3.0)_1.0_1.4_-0.04_%s_1.0_TrFED_TREDEB.dat'%parameter,
-            '../../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB8.dat'%parameter,
-            '../../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB16.dat'%parameter,
-            '../../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB24.dat'%parameter,
-            '../../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB60.dat'%parameter,
-            '../../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB800.dat'%parameter,
+            '../result/ed/1DIF_S2x(8P-1O)_FSTR(32,8,3.0)_1.0_1.4_-0.04_%s_1.0_TrFED_TREDEB.dat'%parameter,
+            '../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB8.dat'%parameter,
+            '../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB16.dat'%parameter,
+            '../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB24.dat'%parameter,
+            '../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB60.dat'%parameter,
+            '../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_EB800.dat'%parameter,
         ]
         for j,(name,label) in enumerate(zip(names,('','$N_q=8$','$N_q=16$','$N_q=24$','$N_q=60$','$N_q=800$'))):
             result=np.loadtxt(name)
@@ -174,7 +174,7 @@ def gap_berry_and_phase_diagram():
 
     ax=axes[0]
     twinx=ax.twinx()
-    fbbp=np.loadtxt('../../result/fbfm/S2x_BP_FBFM.dat')
+    fbbp=np.loadtxt('../result/fbfm/S2x_BP_FBFM.dat')
     twinx.plot(fbbp[:,0],np.abs(fbbp[:,1]),'-',color='green',lw=2,zorder=1)
     twinx.plot(fbbp[:,0],np.abs(fbbp[:,2]),'--',color='green',lw=2,zorder=1)
     twinx.minorticks_on()
@@ -186,7 +186,7 @@ def gap_berry_and_phase_diagram():
         tick.set_color('green')
     twinx.set_ylabel('Berry Phase',color='green',fontdict={'fontsize':18})
 
-    fbgap=np.loadtxt('../../result/fbfm/S2x_GAP_FBFM_EX.dat')
+    fbgap=np.loadtxt('../result/fbfm/S2x_GAP_FBFM_EX.dat')
     ax.plot(fbgap[:,0],fbgap[:,-1],color='blue',ls='-',lw=2,zorder=1)
     ax.minorticks_on()
     ax.set_xlim(0.0,0.8)
@@ -234,7 +234,7 @@ def edge():
     gs.update(left=0.14,right=0.96,top=0.97,bottom=0.11,hspace=0.55,wspace=0.20)
 
     ax=plt.subplot(gs[0:2,:])
-    result=np.loadtxt('../../result/fbfm/1DIF_S2x(60O-1O)_up_1.0_1.4_-0.04_1.0_FBFM_EDGE.dat')
+    result=np.loadtxt('../result/fbfm/1DIF_S2x(60O-1O)_up_1.0_1.4_-0.04_1.0_FBFM_EDGE.dat')
     xs=result[:,0]
     ax.plot(xs,result[:,1:59]/xs[:,np.newaxis],color='grey',lw=1,alpha=0.5,zorder=1)
     ax.plot(xs,result[:,59]/xs,color='blue',lw=2,zorder=2)
@@ -257,7 +257,7 @@ def edge():
 
     for i,(parameter,tag) in enumerate(zip(['0.02','0.3','0.78'],['(b)','(c)','(d)'])):
         ax=plt.subplot(gs[2,i])
-        result=np.loadtxt('../../result/fbfm/1DIF_S2x(60O-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_POS.dat'%parameter)
+        result=np.loadtxt('../result/fbfm/1DIF_S2x(60O-1O)_up_1.0_1.4_-0.04_%s_1.0_FBFM_POS.dat'%parameter)
         ax.plot(result[:,0],result[:,2].real,color='blue',lw=2)
         ax.plot(result[:,0],result[:,3].real,color='green',lw=2)
         ax.plot(result[:,0],result[:,4].real,color='purple',lw=2)
@@ -288,7 +288,7 @@ def delta_spectrum():
     gs.update(left=0.13,right=0.97,top=0.99,bottom=0.07,hspace=0.9,wspace=0.1)
 
     for i,(parameter,tag) in enumerate(zip([-0.04,0.18,0.26,0.41],['(a)','(b)','(c)','(d)'])):
-        data=np.load('../../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_%s_0.3_1.0_FBFM_EB800.npz'%HP.decimaltostr(parameter))['data']
+        data=np.load('../result/fbfm/1DIF_S2x(1P-1O)_up_1.0_1.4_%s_0.3_1.0_FBFM_EB800.npz'%HP.decimaltostr(parameter))['data']
         ax=plt.subplot(gs[0:2,i%2]) if i<2 else plt.subplot(gs[2:4,i%2])
         ax.plot(data[:,0],data[:,1:3],color='green',lw=2,zorder=2)
         ax.plot(data[:,0],data[:,3:],color='grey',lw=2,alpha=0.3,zorder=1)
@@ -308,7 +308,7 @@ def delta_spectrum():
         ax.text(50,0.21,tag,fontsize=22,color='black')
 
         ax=inset_axes(ax,width="30%",height=1.0,loc=1)
-        data=np.loadtxt('../../result/tba/1DIF_S2x(1P-1O)_A_1.0_1.4_%s_TBA_EB.dat'%HP.decimaltostr(parameter))
+        data=np.loadtxt('../result/tba/1DIF_S2x(1P-1O)_A_1.0_1.4_%s_TBA_EB.dat'%HP.decimaltostr(parameter))
         ax.plot(data[:,0],data[:,1:],lw=1.5,color='blue',zorder=1)
         ax.minorticks_on()
         ax.set_ylim(-2.5,4.5)
@@ -354,13 +354,12 @@ def delta_spectrum():
     plt.close()
 
 def v_spectrum():
-    from mpl_toolkits.axes_grid.inset_locator import inset_axes
     plt.ion()
     gs=plt.GridSpec(7,2)
     gs.update(left=0.13,right=0.97,top=0.98,bottom=0.07,hspace=0.9,wspace=0.1)
 
     for i,(parameter,tag) in enumerate(zip([0.0,0.09,0.4,0.64],['(a)','(b)','(c)','(d)'])):
-        data=np.load('../../result/fbfm/1DIF_1.0_1.25_-0.4375_0.3_1.0_%s_EB800.npz'%HP.decimaltostr(parameter))['data']
+        data=np.load('../result/fbfm/1DIF_1.0_1.25_-0.4375_0.3_1.0_%s_EB800.npz'%HP.decimaltostr(parameter))['data']
         ax=plt.subplot(gs[0:2,i%2]) if i<2 else plt.subplot(gs[2:4,i%2])
         ax.plot(data[:,0],data[:,1:3],color='green',lw=2,zorder=2)
         ax.plot(data[:,0],data[:,3:],color='grey',lw=2,alpha=0.3,zorder=1)

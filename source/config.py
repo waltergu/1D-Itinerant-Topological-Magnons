@@ -10,9 +10,9 @@ nneighbour=2
 parametermap=None
 
 # idfmap
-idfmap=lambda pid: Fermi(atom=(pid.site+1)%2,norbital=1,nspin=2,nnambu=1)
-tbaidfa=lambda pid: Fermi(atom=(pid.site+0)%2,norbital=1,nspin=1,nnambu=1)
-tbaidfb=lambda pid: Fermi(atom=(pid.site+1)%2,norbital=1,nspin=1,nnambu=1)
+idfmap=lambda pid: Fock(atom=(pid.site+1)%2,norbital=1,nspin=2,nnambu=1)
+tbaidfa=lambda pid: Fock(atom=(pid.site+0)%2,norbital=1,nspin=1,nnambu=1)
+tbaidfb=lambda pid: Fock(atom=(pid.site+1)%2,norbital=1,nspin=1,nnambu=1)
 
 # terms
 t=lambda **parameters: Hopping('t',parameters['t'],neighbour=2,atoms=[0,0])
