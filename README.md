@@ -14,8 +14,8 @@ Different from previous scenarios that topological magnons emerge in local spin 
 
 Paper online
 ------------
-http://arxiv.org/abs/1801.05255
-https://journals.aps.org/prb/abstract/10.1103/PhysRevB.97.245111
+* http://arxiv.org/abs/1801.05255
+* https://journals.aps.org/prb/abstract/10.1103/PhysRevB.97.245111
 
 Source online
 -------------
