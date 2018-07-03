@@ -94,6 +94,98 @@ def lattice():
     plt.savefig('lattice.pdf')
     plt.close()
 
+def lattice_poster():
+    import matplotlib.gridspec as mg
+    plt.ion()
+
+    fig=plt.figure()
+    gs=mg.GridSpec(3,1,width_ratios=[1],height_ratios=[1,3,3])
+    fig.subplots_adjust(left=0.18,right=0.98,top=0.99,bottom=0.04,hspace=0.035,wspace=0.9)
+
+    ax=fig.add_subplot(gs[0,0])
+    ax.axis('off')
+    ax.set_xlim(-0.1,5.1)
+    ax.set_ylim(-1.0,2.0)
+    PA,PB,t=np.array([0.0,0.0]),np.array([0.5,0.8]),np.array([1.0,0.0])
+    lattice=HP.Lattice(name='FBFM',rcoords=HP.tiling(cluster=[PA,PB],vectors=[t],translations=xrange(6)),neighbours=2)
+    for bond in lattice.bonds:
+        p1,p2=bond.spoint,bond.epoint
+        if bond.neighbour==0:
+            if p1.pid.site<len(lattice)-1:
+                alpha=1.0 if p1.pid.site in (0,1,2,3,4,5,6,9,10) else 0.5
+                ax.scatter(p1.rcoord[0],p1.rcoord[1],edgecolors='none',color='blue' if p1.pid.site%2==0 else 'red',alpha=alpha,zorder=2)
+        else:
+            if not (bond.neighbour==2 and p1.pid.site%2==1 and p2.pid.site%2==1 or p1.pid.site==len(lattice)-1 or p2.pid.site==len(lattice)-1):
+                ax.plot([p1.rcoord[0],p2.rcoord[0]],[p1.rcoord[1],p2.rcoord[1]],lw=2,color='purple' if bond.neighbour==1 else 'green',zorder=1)
+    ax.text(0.90,-0.70,'A',fontsize=16,color='black')
+    ax.text(1.40,+1.00,'B',fontsize=16,color='black')
+    ax.annotate(s='',xy=[2.0,0.0],xytext=[3.0,0.0],arrowprops={'color':'green','linewidth':2,'arrowstyle':'<->','zorder':3})
+    ax.annotate(s='',xy=[2.0,0.0],xytext=[2.5,0.8],arrowprops={'color':'purple','linewidth':2,'arrowstyle':'<->','zorder':3})
+    ax.annotate(s='',xy=[2.5,0.8],xytext=[3.0,0.0],arrowprops={'color':'purple','linewidth':2,'arrowstyle':'<->','zorder':3})
+    ax.text(2.41,-0.62,'$t$',fontsize=18,color='black')
+    ax.text(2.00,0.40,'$\lambda$',fontsize=18,color='black')
+    ax.text(2.75,0.40,'$\lambda$',fontsize=18,color='black')
+    ax.text(2.39,0.95,'$\epsilon$',fontsize=18,color='black')
+    dy=0.8
+    ax.annotate(s='',xy=[3.45,0.8-dy/2],xytext=[3.45,0.8+dy/2+0.1],arrowprops={'color':'red','linewidth':2,'arrowstyle':'<-','zorder':3})
+    ax.annotate(s='',xy=[3.55,0.8-dy/2-0.1],xytext=[3.55,0.8+dy/2],arrowprops={'color':'red','linewidth':2,'arrowstyle':'->','zorder':3})
+    ax.annotate(s='',xy=[3.95,-dy/2],xytext=[3.95,dy/2+0.1],arrowprops={'color':'blue','linewidth':2,'arrowstyle':'<-','zorder':3})
+    ax.annotate(s='',xy=[4.05,-dy/2-0.1],xytext=[4.05,dy/2],arrowprops={'color':'blue','linewidth':2,'arrowstyle':'->','zorder':3})
+    ax.text(3.35,+1.24,'$U_d$',fontsize=18,color='black')
+    ax.text(3.90,-0.97,'$U_s$',fontsize=18,color='black')
+    ax.text(-1.1,1.47,"(a)",ha='left',fontsize=18,color='black')
+
+    ax=fig.add_subplot(gs[1,0])
+    result=np.loadtxt('../result/tba/1DIF_S2x(1P-1O)_A_1.0_1.4_-0.04_TBA_EB.dat')
+    ax.plot(result[:,0],result[:,1:],color='green',lw=2)
+    ax.minorticks_on()
+    ax.set_ylim(-2.5,4.5)
+    ax.set_xlim(0,400)
+    ax.set_xticks(np.linspace(0,400,5))
+    ax.set_xticklabels(['-$\pi$','','$0$','','$\pi$'])
+    for tick in ax.get_xticklabels():
+        tick.set_fontsize(18)
+    for tick in ax.get_yticklabels():
+        tick.set_fontsize(18)
+    ax.set_xlabel("k",fontdict={'fontsize':18})
+    ax.set_ylabel("$E/t$",fontdict={'fontsize':18})
+    ax.text(-80,4.0,"(b)",fontsize=18,color='black')
+
+    ax=fig.add_subplot(gs[2,0])
+    ax.axis('off')
+    ax.set_xlim(-0.1,6.1)
+    ax.set_ylim(-0.4,6.5)
+    sp,ep,t=np.array([0.0]),np.array([0.75]),np.array([1.0])
+    lattice=HP.Lattice(name='FBFM',rcoords=HP.tiling(cluster=[sp,ep],vectors=[t],translations=xrange(6)),neighbours=2)
+    for bond in lattice.bonds:
+        if bond.neighbour==2:
+            x1,x2,dy=bond.spoint.rcoord[0],bond.epoint.rcoord[0],0.8
+            ax.plot([x1,x2],[0.0,0.0],lw=2,color='black')
+            ax.plot([x1,x2],[3.0,3.0],lw=2,color='black')
+            ax.annotate(s='',xy=[(x1+x2)/2,-dy/2],xytext=[(x1+x2)/2,dy/2+0.1],arrowprops={'color':'green','linewidth':2,'arrowstyle':'<-','zorder':3})
+            if np.abs((x1+x2)/2-4.375)<HP.RZERO:
+                ax.annotate(s='',xy=[(x1+x2)/2-0.05,3.0-dy/2],xytext=[(x1+x2)/2-0.05,3.0+dy/2+0.1],arrowprops={'color':'green','linewidth':2,'arrowstyle':'<-','zorder':3})
+                ax.annotate(s='',xy=[(x1+x2)/2+0.05,3.0-dy/2-0.1],xytext=[(x1+x2)/2+0.05,3.0+dy/2],arrowprops={'color':'green','linewidth':2,'arrowstyle':'->','zorder':3})
+            elif np.abs((x1+x2)/2-1.375)>HP.RZERO:
+                ax.annotate(s='',xy=[(x1+x2)/2,3.0-dy/2],xytext=[(x1+x2)/2,3.0+dy/2+0.1],arrowprops={'color':'green','linewidth':2,'arrowstyle':'<-','zorder':3})
+    ax.text(1.25,-0.9,'$k_i$',fontsize=18,color='black')
+    ax.text(4.25,-0.9,'$k_j$',fontsize=18,color='black')
+    ax.text(1.25,2.1,'$k_i$',fontsize=18,color='black')
+    ax.text(4.25,2.1,'$k_j$',fontsize=18,color='black')
+    ax.plot([1.375,1.375],[3.5,4.3],ls='--',color='black')
+    ax.plot([4.375,4.375],[3.5,4.3],ls='--',color='black')
+    ax.annotate('',xy=[1.375,3.7],xytext=[4.375,3.7],arrowprops={'color':'black','linewidth':1.5,'arrowstyle':'<->','zorder':3})
+    ax.text(2.875,3.7,'$q=k_i-k_j$',ha='center',va='bottom',fontsize=18,color='black')
+    ax.annotate('',xy=[2.875,0.5],xytext=[2.875,2.5],arrowprops={'color':'black','linewidth':1.5,'arrowstyle':'<-','zorder':3})
+    ax.text(2.975,1.5,'$\Delta S_z=-1$',ha='left',va='center',fontsize=18,color='black')
+    ax.text(-0.1,0.0,'$\left|\mathrm{GS}\\rightangle\\right.$:',ha='right',va='center',fontsize=14,color='black')
+    ax.text(-0.1,3.0,'$S_q^-\left|\mathrm{GS}\\rightangle\\right.$:',ha='right',va='center',fontsize=14,color='black')
+    ax.text(-1.5,4.3,'(c)',ha='left',va='center',fontsize=18,color='black')
+
+    pdb.set_trace()
+    plt.savefig('lattice_poster.pdf')
+    plt.close()
+
 def spectrum():
     plt.ion()
     fig,axes=plt.subplots(nrows=1,ncols=3)
@@ -416,3 +508,4 @@ if __name__=='__main__':
         if arg in ('4','all'): edge()
         if arg in ('5','all'): delta_spectrum()
         if arg in ('6','all'): v_spectrum()
+        if arg in ('7','all'): lattice_poster()

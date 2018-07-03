@@ -16,3 +16,4 @@ log/
 *.blg
 *Notes.bib
 .idea/
+*.ps
