@@ -1,5 +1,6 @@
 import HamiltonianPy as HP
 import numpy as np
+import scipy.interpolate as itp
 import matplotlib.cm as cmx
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
@@ -625,12 +626,16 @@ def delta_spectrum_thesis():
             tick.set_color('blue')
 
     ax=plt.subplot(gs[:,2:4])
-    xs1=np.array([0.02,0.10,0.15,0.20,0.250,0.30,0.350,0.360,0.370,0.380,0.39,0.395,0.40,0.405,0.41])
-    ys1=np.array([0.36,0.33,0.31,0.28,0.255,0.22,0.175,0.165,0.155,0.145,0.13,0.120,0.11,0.100,0.00])
+    xs1=np.array([0.02,0.10,0.15,0.200,0.250,0.30,0.350,0.360,0.370,0.380,0.39,0.395,0.40,0.410])
+    ys1=np.array([0.36,0.33,0.31,0.285,0.255,0.22,0.175,0.165,0.155,0.144,0.13,0.122,0.11,0.000])
     xs2=np.array([0.02,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.50,0.60,0.70,0.80])
     ys2=np.array([0.38,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,0.50,0.51])
-    ax.plot(xs1,ys1,lw=2)
-    ax.plot(xs2,ys2,lw=2)
+    X1=np.linspace(xs1.min(),xs1.max(),201)
+    Y1=itp.splev(X1,itp.splrep(xs1,ys1,k=3),der=0)
+    X2=np.linspace(xs2.min(),xs2.max(),201)
+    Y2=itp.splev(X2,itp.splrep(xs2,ys2,k=3),der=0)
+    ax.plot(X1,Y1,lw=2)
+    ax.plot(X2,Y2,lw=2)
     ax.scatter([0.3,0.3,0.3,0.3],[0.0,0.22,0.30,0.45],s=100,color='red',marker='*',edgecolors='none',zorder=4,clip_on=False,alpha=0.8)
     ax.minorticks_on()
     ax.set_xlim(0.1,0.7)
@@ -683,12 +688,17 @@ def v_spectrum_thesis():
         ax.text(50,0.25,tag,fontsize=22,color='black')
 
     ax=plt.subplot(gs[:,2:4])
-    xs1=np.array([0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.71])
-    ys1=np.array([0.05,0.08,0.09,0.09,0.08,0.05,0.01,0.00])
-    xs2=np.array([0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90])
-    ys2=np.array([0.38,0.54,0.64,0.72,0.81,0.85,0.89,0.93,0.97])
-    ax.plot(xs1,ys1,lw=2)
-    ax.plot(xs2,ys2,lw=2)
+    xs1=np.array([0.10,0.20,0.30,0.40,0.50,0.600,0.700,0.71])
+    ys1=np.array([0.05,0.08,0.09,0.09,0.08,0.055,0.008,0.00])
+    xs2=np.array([0.10,0.20,0.30,0.400,0.500,0.600,0.700,0.800,0.90])
+    ys2=np.array([0.38,0.54,0.64,0.725,0.800,0.855,0.895,0.935,0.97])
+
+    X1=np.linspace(xs1.min(),xs1.max(),201)
+    Y1=itp.splev(X1,itp.splrep(xs1,ys1,k=3),der=0)
+    X2=np.linspace(xs2.min(),xs2.max(),201)
+    Y2=itp.splev(X2,itp.splrep(xs2,ys2,k=3),der=0)
+    ax.plot(X1,Y1,lw=2)
+    ax.plot(X2,Y2,lw=2)
     ax.scatter([0.3,0.3,0.3,0.3],[0.00,0.09,0.40,0.64],s=100,color='red',marker='*',edgecolors='none',zorder=4,clip_on=False,alpha=0.8)
     ax.minorticks_on()
     ax.set_xlim(0.1,0.9)
