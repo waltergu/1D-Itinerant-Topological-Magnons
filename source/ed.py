@@ -2,7 +2,7 @@ import numpy as np
 import HamiltonianPy.ED as ED
 import HamiltonianPy.Beta.TrED as TrED
 from HamiltonianPy import *
-from config import *
+from .config import *
 
 __all__=['edconstruct','tredconstruct']
 
@@ -12,7 +12,7 @@ def edconstruct(parameters,basis,lattice,terms,**karg):
         dlog=       'log',
         din=        'data',
         dout=       'result/ed',
-        name=       '%s_%s_%s'%(name,lattice.name,basis.rep),
+        name=       '%s_%s_%s'%(name,lattice.name,repr(basis)),
         parameters= parameters,
         map=        parametermap,
         sectors=    [basis],
@@ -29,7 +29,7 @@ def tredconstruct(parameters,basis,lattice,terms,**karg):
         dlog=       'log',
         din=        'data',
         dout=       'result/ed',
-        name=       '%s_%s_%s'%(name,lattice.name,basis.rep),
+        name=       '%s_%s_%s'%(name,lattice.name,repr(basis)),
         parameters= parameters,
         map=        parametermap,
         basis=      basis,
