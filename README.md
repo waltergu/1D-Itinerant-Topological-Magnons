@@ -1,4 +1,4 @@
-# 1D-Intinerant-Topological-Magnons
+# 1D-Itinerant-Topological-Magnons
 1-dimensional itinerant ferromagnetic topological magnons.
 
 Authors
@@ -19,7 +19,7 @@ Paper online
 
 Source online
 -------------
-https://github.com/waltergu/1DIFTM
+https://github.com/waltergu/1D-Itinerant-Topological-Magnons
 
 Contact
 -------
