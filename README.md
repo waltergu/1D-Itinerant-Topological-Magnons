@@ -1,4 +1,4 @@
-# 1DIFTM
+# 1D-Intinerant-Topological-Magnons
 1-dimensional itinerant ferromagnetic topological magnons.
 
 Authors
