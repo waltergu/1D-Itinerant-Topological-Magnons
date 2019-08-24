@@ -210,7 +210,7 @@ def spectrum():
                 xs=np.array(range(result.shape[0]))*1.0/(result.shape[0]-1)
                 axes[i].plot(xs,(result[:,1:]+16.0)/parameter,'.',color='red',lw=8,zorder=2,clip_on=False)
             else:
-                result=result[np.array(range(result.shape[0])+[0]),:]
+                result=result[np.array(list(range(result.shape[0]))+[0]),:]
                 xs=np.array(range(result.shape[0]))*1.0/(result.shape[0]-1)
                 if i==1:
                     axes[i].plot(xs,result[:,1]/parameter,color=cmap.to_rgba(start+(j-1)*inc),ls='-',lw=1.5,zorder=1)
